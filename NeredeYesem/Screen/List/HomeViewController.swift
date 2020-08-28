@@ -26,10 +26,58 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+               
+               
+                latitude = locValue.latitude
+                longitude = locValue.longitude
+                print("locations = \(latitude) \(longitude)")
+                if latitude != 0 || longitude != 0 {
+                       if !CheckInternet.Connection(){
+                           self.Alert(Message: "Your Device is not connected with internet!")
+                       }else{
+                           self.activityIndicator.center = self.view.center
+                           self.activityIndicator.hidesWhenStopped = true
+                           self.activityIndicator.style = UIActivityIndicatorView.Style.gray
+                           self.view.addSubview(self.activityIndicator)
+                           self.activityIndicator.startAnimating()
+                           //lat: 38.5317271069,lon: 27.1564288379)
+                           //lat: 38.4237,lon: 27.1428
+                           NetworkingService.shared.getRestaurantsInformation(lat: latitude,lon: longitude) { (datas, error) in
+                               DispatchQueue.main.async {
+                                   
+                                   self.restaurants = datas
+                                   if self.restaurants.count != 0{
+                                       dump(self.restaurants)
+                                       self.tableView.dataSource = self
+                                       self.tableView.delegate = self
+                                       self.tableView.reloadData()
+                                       self.activityIndicator.stopAnimating()
+                                      self.activityIndicator.isHidden = true
+                                      self.activityIndicator.hidesWhenStopped = true
+                                       
+                                   }else{
+                                      let errorString = error?.localizedDescription ?? "An error has occurred!Restaurants informations could not be fetched!"
+                                      self.Alert(Message: errorString)
+                                      self.activityIndicator.stopAnimating()
+                                      self.activityIndicator.isHidden = true
+                                      self.activityIndicator.hidesWhenStopped = true
+                                      
+                                   }
+                               }
+                           }
+                       }
+                 }else{
+                     let storyBoard = self.storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+                                         storyBoard.modalPresentationStyle = .fullScreen
+                                           self.present(storyBoard, animated: true, completion: nil)
+                 }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    /*override func viewWillAppear(_ animated: Bool) {
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+        
+        
          latitude = locValue.latitude
          longitude = locValue.longitude
          print("locations = \(latitude) \(longitude)")
@@ -42,9 +90,11 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
                     self.activityIndicator.style = UIActivityIndicatorView.Style.gray
                     self.view.addSubview(self.activityIndicator)
                     self.activityIndicator.startAnimating()
-                    
-                    NetworkingService.shared.getRestaurantsInformation(lat: latitude,lon: longitude) { (datas, error) in
+                    //lat: 38.5317271069,lon: 27.1564288379)
+                    //lat: 38.4237,lon: 27.1428
+                    NetworkingService.shared.getRestaurantsInformation(lat: 38.5317271069,lon: 27.1564288379) { (datas, error) in
                         DispatchQueue.main.async {
+                            
                             self.restaurants = datas
                             if self.restaurants.count != 0{
                                 dump(self.restaurants)
@@ -73,7 +123,7 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
           }
         
         
-    }
+    }*/
     
     /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail"{
@@ -108,7 +158,7 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! RestaurantTableViewCell
-        
+        dump(restaurants)
         cell.restaurantImage.imageFromURL(urlString:  restaurants[indexPath.row].image, PlaceHolderImage: UIImage.init(named: "placeholder")!)
         cell.restaurantName.text = restaurants[indexPath.row].name
         cell.restaurantRange.text = restaurants[indexPath.row].rating
@@ -132,10 +182,10 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
 extension UIImageView {
 public func imageFromURL(urlString: String, PlaceHolderImage:UIImage) {
 
-       if self.image == nil{
+       if self.image == nil || urlString==""{
              self.image = PlaceHolderImage
        }
-
+        
        URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
 
            if error != nil {

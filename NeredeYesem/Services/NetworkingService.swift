@@ -35,10 +35,12 @@ class NetworkingService{
                     let fetch = try JSONDecoder().decode(Type.self, from: data!)
                     print(fetch)
                     dump(fetch.nearby_restaurants)
-                    for i in fetch.nearby_restaurants{
-                        self.datas.append(datatype(id: i.restaurant.id, name: i.restaurant.name, image: i.restaurant.thumb, rating: i.restaurant.user_rating.aggregate_rating, webUrl: i.restaurant.url, currency: i.restaurant.currency, cuisines: i.restaurant.cuisines, average_cost_for_two: i.restaurant.average_cost_for_two, rating_text: i.restaurant.user_rating.rating_text, latitude: i.restaurant.location.latitude, longitude: i.restaurant.location.longitude))
+                   
+                    for i in fetch.nearby_restaurants!{
+                        self.datas.append(datatype(id: i.restaurant?.id ?? "", name: i.restaurant?.name ?? "", image: i.restaurant?.thumb ?? "", rating: i.restaurant?.user_rating.aggregate_rating ?? "", webUrl: i.restaurant?.url ?? "", currency: i.restaurant?.currency ?? "", cuisines: i.restaurant?.cuisines ?? "", average_cost_for_two: i.restaurant?.average_cost_for_two ?? 0, rating_text: i.restaurant?.user_rating.rating_text ?? "", latitude: i.restaurant?.location.latitude ?? "0", longitude: i.restaurant?.location.longitude ?? "0"))
                         
                     }
+                    print("kontrol")
                     dump(self.datas)
                     completionHandler(self.datas,nil)
                 }

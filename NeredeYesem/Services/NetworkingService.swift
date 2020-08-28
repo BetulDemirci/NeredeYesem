@@ -20,7 +20,7 @@ class NetworkingService{
     
         DispatchQueue.global(qos: .userInteractive).sync {
             urlString += "lat=\(lat)&lon=\(lon)"
-           // urlString += "lat=\(38.438397)&lon=\(27.143511)"
+           // urlString += "lat=\(37.7981555556)&lon=\(-122.4072638889)"
             print(urlString)
             let url = URL(string: urlString)
             var request = URLRequest(url: url!)

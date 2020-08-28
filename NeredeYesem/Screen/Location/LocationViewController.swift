@@ -32,7 +32,27 @@ class LocationViewController: UIViewController {
                     self!.performSegue(withIdentifier: "goHomePage", sender: self)
                   }
               }*/
-        
+        switch locationService.status {
+           case .notDetermined:
+              locationManager.requestWhenInUseAuthorization()
+           return
+           case .denied, .restricted:
+              let alert = UIAlertController(title: "Location Services are disabled", message: "Please enable Location Services in your Settings", preferredStyle: .alert)
+              let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+              alert.addAction(okAction)
+              present(alert, animated: true, completion: nil)
+           return
+           case .authorizedAlways, .authorizedWhenInUse:
+           break
+        }
+            locationService.requestLocationAuthorization()
+                  locationManager.startUpdatingLocation()
+            locationService.didChangeStatus = { [weak self] success in
+                if success {
+                    self?.locationService.getLocation()
+                  self!.performSegue(withIdentifier: "goHomePage", sender: self)
+                }
+            }
     }
     
     @IBAction func actionDennyLocationButton(_ sender: UIButton) {

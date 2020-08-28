@@ -30,42 +30,49 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
-        latitude = locValue.latitude
-        longitude = locValue.longitude
-        print("locations = \(latitude) \(longitude)")
-        
-        if !CheckInternet.Connection(){
-            self.Alert(Message: "Your Device is not connected with internet!")
-        }else{
-            self.activityIndicator.center = self.view.center
-            self.activityIndicator.hidesWhenStopped = true
-            self.activityIndicator.style = UIActivityIndicatorView.Style.gray
-            self.view.addSubview(self.activityIndicator)
-            self.activityIndicator.startAnimating()
-            
-            NetworkingService.shared.getRestaurantsInformation(lat: latitude,lon: longitude) { (datas, error) in
-                DispatchQueue.main.async {
-                    self.restaurants = datas
-                    if self.restaurants.count != 0{
-                        dump(self.restaurants)
-                        self.tableView.dataSource = self
-                        self.tableView.delegate = self
-                        self.tableView.reloadData()
-                        self.activityIndicator.stopAnimating()
-                       self.activityIndicator.isHidden = true
-                       self.activityIndicator.hidesWhenStopped = true
-                        
-                    }else{
-                       let errorString = error?.localizedDescription ?? "An error has occurred!Restaurants informations could not be fetched!"
-                       self.Alert(Message: errorString)
-                       self.activityIndicator.stopAnimating()
-                       self.activityIndicator.isHidden = true
-                       self.activityIndicator.hidesWhenStopped = true
-                       
+         latitude = locValue.latitude
+         longitude = locValue.longitude
+         print("locations = \(latitude) \(longitude)")
+         if latitude != 0 || longitude != 0 {
+                if !CheckInternet.Connection(){
+                    self.Alert(Message: "Your Device is not connected with internet!")
+                }else{
+                    self.activityIndicator.center = self.view.center
+                    self.activityIndicator.hidesWhenStopped = true
+                    self.activityIndicator.style = UIActivityIndicatorView.Style.gray
+                    self.view.addSubview(self.activityIndicator)
+                    self.activityIndicator.startAnimating()
+                    
+                    NetworkingService.shared.getRestaurantsInformation(lat: latitude,lon: longitude) { (datas, error) in
+                        DispatchQueue.main.async {
+                            self.restaurants = datas
+                            if self.restaurants.count != 0{
+                                dump(self.restaurants)
+                                self.tableView.dataSource = self
+                                self.tableView.delegate = self
+                                self.tableView.reloadData()
+                                self.activityIndicator.stopAnimating()
+                               self.activityIndicator.isHidden = true
+                               self.activityIndicator.hidesWhenStopped = true
+                                
+                            }else{
+                               let errorString = error?.localizedDescription ?? "An error has occurred!Restaurants informations could not be fetched!"
+                               self.Alert(Message: errorString)
+                               self.activityIndicator.stopAnimating()
+                               self.activityIndicator.isHidden = true
+                               self.activityIndicator.hidesWhenStopped = true
+                               
+                            }
+                        }
                     }
                 }
-            }
-        }
+          }else{
+              let storyBoard = self.storyboard?.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+                                  storyBoard.modalPresentationStyle = .fullScreen
+                                    self.present(storyBoard, animated: true, completion: nil)
+          }
+        
+        
     }
     
     /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -52,6 +52,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-ct-qVH">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="194" id="eld-9D-XmY" customClass="RestaurantTableViewCell" customModule="NeredeYesem" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="194"/>
@@ -104,7 +105,7 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="TaU-D4-bum" firstAttribute="leading" secondItem="iUd-OE-vCy" secondAttribute="leading" id="JGn-zr-P1q"/>
                                                         <constraint firstItem="TaU-D4-bum" firstAttribute="top" secondItem="iUd-OE-vCy" secondAttribute="top" id="jv3-hf-Pi6"/>
@@ -113,6 +114,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="iUd-OE-vCy" firstAttribute="leading" secondItem="0St-zF-4b7" secondAttribute="leadingMargin" id="GjJ-8T-Qco"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="iUd-OE-vCy" secondAttribute="bottom" id="JQW-Os-NfR"/>
@@ -120,6 +122,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="iUd-OE-vCy" secondAttribute="trailing" id="vLT-kQ-t5Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="restaurantImage" destination="cLo-LG-dGT" id="pP9-eU-dEE"/>
                                             <outlet property="restaurantName" destination="gXF-fS-iTP" id="DHl-W6-LuA"/>
@@ -175,7 +178,7 @@
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MdX-LY-DrK">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="250" id="71S-Oi-e0h"/>
                                                 </constraints>
@@ -278,7 +281,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="177" id="2ro-jC-JCx"/>
                                                     <constraint firstAttribute="trailing" secondItem="tvr-yi-VEx" secondAttribute="trailing" constant="16" id="6s2-0L-OCd"/>
@@ -296,6 +299,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="cTA-mu-qEj" secondAttribute="bottom" constant="20" symbolic="YES" id="44C-3j-Thm"/>
                                     <constraint firstItem="cTA-mu-qEj" firstAttribute="leading" secondItem="c5D-x5-zcD" secondAttribute="leading" id="6Ld-yi-ehf"/>
@@ -312,7 +316,7 @@
                                 <color key="currentPageIndicatorTintColor" red="0.81568627449999997" green="0.31372549020000001" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="c5D-x5-zcD" secondAttribute="bottom" constant="20" symbolic="YES" id="8qc-H4-2lB"/>
                             <constraint firstItem="c5D-x5-zcD" firstAttribute="trailing" secondItem="wBW-h5-PGI" secondAttribute="trailing" id="B7N-1a-0so"/>
